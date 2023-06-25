@@ -1,17 +1,16 @@
-import express from "express"
-const app = express()
-const port = process.env.PORT || 3000
-app.use(express.json())
+const messageElement = document.getElementById('content');
 
-app.get("/", (req, res) => {
-    res.send("Welcome to Our API Server!\nCreated by Eternityyy from BKI Team")
-})
 
-app.get("/api/quote", (req, res) => {
-    const data = {"quote": "hello world"}
-    res.json(data)
-})
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+// Fetch a random quote from the API and update the HTML
 
-app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-})
+window.addEventListener('DOMContentLoaded', async () => {
+    fetch('./data/quotes.json')
+        .then(response => response.json())
+        .then(data => {
+            const index = randomInt(0, data.length)
+            messageElement.textContent = data[index]
+        })
+});
