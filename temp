@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dark High Contrast with Falling Alphabets</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    #mountain {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .falling-alphabet {
+      position: absolute;
+      color: #fff;
+      animation: fall 10s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img id="mountain" src="everest.webp" alt="Mount Everest">
+
+  <script>
+    function generateRandomAlphabet() {
+      var alphabets = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789|||||?><!@)(&$#(*$^@#))';
+      var randomIndex = Math.floor(Math.random() * alphabets.length);
+      return alphabets[randomIndex];
+    }
+
+    function createFallingAlphabet() {
+      var alphabet = generateRandomAlphabet();
+      var fontSize = Math.floor(Math.random() * 30) + 10;
+      var x = Math.floor(Math.random() * window.innerWidth);
+      var duration = Math.floor(Math.random() * 5) + 5;
+
+      var element = document.createElement('div');
+      element.className = 'falling-alphabet';
+      element.textContent = alphabet;
+      element.style.left = x + 'px';
+      element.style.fontSize = fontSize + 'px';
+      element.style.animationDuration = duration + 's';
+
+      document.body.appendChild(element);
+
+      setTimeout(function() {
+        element.remove();
+      }, duration * 1000);
+    }
+
+    function adjustImageSize() {
+      var mountain = document.getElementById('mountain');
+      var screenWidth = window.innerWidth;
+      var screenHeight = window.innerHeight;
+
+      mountain.style.width = screenWidth + 'px';
+      mountain.style.height = screenHeight + 'px';
+    }
+
+    window.addEventListener('resize', adjustImageSize);
+    adjustImageSize();
+
+    setInterval(createFallingAlphabet, 180);
+  </script>
+</body>
+</html>

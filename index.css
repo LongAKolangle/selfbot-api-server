@@ -1,0 +1,125 @@
+body {
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+#mountain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.6;
+}
+
+.falling-alphabet {
+    position: absolute;
+    color: #fff;
+    animation: fall 10s linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+
+.center-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    height: 35%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 6s steps(50) forwards;
+}
+
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.input {
+    flex: 1;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+}
+
+.input-button {
+    padding: 10px 20px;
+    background-color: #fff;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    color: #000;
+    cursor: pointer;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.footer {
+    text-align: center;
+    font-size: 12px;
+}
+@media (max-width: 768px) {
+    .center-box {
+        width: 90%;
+        max-width: 300px;
+        height: 50%;
+    }
+}
