@@ -2,7 +2,7 @@
   "name": "selfbot-api-server",
   "version": "1.0.0",
   "description": "BKI Discord Selfbot API Server",
-  "main": "index.mjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
