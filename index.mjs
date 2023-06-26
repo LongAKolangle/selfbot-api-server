@@ -32,8 +32,6 @@ app.use("/api", router)
 
 const serverlessApp = serverless(app);
 
-app.listen(3000)
-
 export const handler = async (event, context) => {
     // Forward the event and context to the serverless app
     const result = await serverlessApp(event, context);
