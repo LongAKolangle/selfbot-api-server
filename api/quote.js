@@ -5,8 +5,11 @@ function getRandomQuote() {
     return data[index];
 }
 
-export default function handler(req, res) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.json(getRandomQuote());
-}
+import express from "express"
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.json(getRandomQuote);
+});
+
+export default router;

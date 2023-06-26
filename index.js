@@ -1,16 +1,32 @@
 import express from "express"
-import path from "path";
+import serverless from "serverless-http"
+import apiRoutes from "./api/index.js"
+import apiQuotes from "./api/quote.js"
 
 const app = express();
-const __dirname = process.cwd()
 
 app.use(express.json())
 
-app.use(express.static(path.join(__dirname, "public")))
+// API routes
+app.use('/api', apiRoutes);
+app.use('/api/quote', apiQuotes);
 
+// Public side
+app.use(express.static("public"))
+
+//Error Handler
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Internal Server Error');
 });
 
-export default app
+const serverlessHandler = serverless(app);
+
+if (process.env.NODE_ENV !== 'production') {
+    const port = 3000;
+    app.listen(port, () => {
+        console.log(`Server running at http://localhost:${port}`);
+    });
+} else {
+    module.exports = serverlessHandler;
+}
