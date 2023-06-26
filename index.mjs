@@ -1,9 +1,10 @@
 import express from "express"
-import path from "path"
+import serverless from "serverless-http"
 import fs from "fs"
+import path from "path";
 
-const app = express()
-const port = process.env.PORT | 3000
+const app = express();
+const rootDir = path.dirname(new URL(import.meta.url).pathname)
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -11,22 +12,21 @@ function randomInt(min, max) {
 
 app.use(express.json())
 
-app.use(express.static("./api/index/"))
+app.use(express.static(path.join(rootDir, "api/index")))
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Internal Server Error');
 });
 
-app.get("/api/quote", (req, res) => {
-    const data = JSON.parse(fs.readFileSync("./data/quotes.json", "utf-8"))
-    res.send(data[randomInt(0, data.length)])
+app.get("/api/quote", async (req, res) => {
+    const rawData = await fs.promises.readFile(path.join(rootDir, "data/quotes.json"), "utf-8")
+    const data = JSON.parse(rawData)
+    res.json(data[randomInt(0, data.length)])
 })
 
 app.get("*", (req, res) => {
     res.status(404).send('404 - Not Found');
 })
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+export default serverless(app)
