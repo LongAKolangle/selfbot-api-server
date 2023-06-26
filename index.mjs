@@ -30,12 +30,9 @@ router.get("/quote", async (req, res) => {
 
 app.use("/api", router)
 
-app.get("*", (req, res) => {
-    res.status(404).send('404 - Not Found');
-})
-
-
 const serverlessApp = serverless(app);
+
+app.listen(3000)
 
 export const handler = async (event, context) => {
     // Forward the event and context to the serverless app
