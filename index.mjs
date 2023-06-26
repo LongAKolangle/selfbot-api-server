@@ -1,5 +1,4 @@
 import express from "express"
-import serverless from "serverless-http"
 import fs from "fs"
 import path from "path";
 
@@ -22,15 +21,15 @@ function getRandomQuote() {
     return data[index];
 }
 
+app.get('/api', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+    res.end(`Hello world!`);
+});
+
 app.get("/api/quote", async (req, res) => {
     const quote = getRandomQuote()
-    res.json(quote)
+    res.end(quote)
 })
 
-const serverlessApp = serverless(app);
-
-export const handler = async (event, context) => {
-    // Forward the event and context to the serverless app
-    const result = await serverlessApp(event, context);
-    return result;
-};
+export default app;
