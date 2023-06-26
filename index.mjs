@@ -4,7 +4,7 @@ import fs from "fs"
 import path from "path";
 
 const app = express();
-const rootDir = path.dirname(new URL(import.meta.url).pathname)
+const __dirname = process.cwd()
 
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -12,7 +12,7 @@ function randomInt(min, max) {
 
 app.use(express.json())
 
-app.use(express.static(path.join(rootDir, "api/index")))
+app.use(express.static(path.join(__dirname, "api/index")))
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -20,7 +20,7 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/api/quote", async (req, res) => {
-    const rawData = await fs.promises.readFile(path.join(rootDir, "data/quotes.json"), "utf-8")
+    const rawData = await fs.promises.readFile(path.join(__dirname, "data/quotes.json"), "utf-8")
     const data = JSON.parse(rawData)
     res.json(data[randomInt(0, data.length)])
 })
