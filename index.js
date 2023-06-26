@@ -1,7 +1,6 @@
 import express from "express"
 import serverless from "serverless-http"
 import apiRoutes from "./api/index.js"
-import apiQuotes from "./api/quote.js"
 
 
 const app = express();
@@ -9,8 +8,7 @@ const app = express();
 app.use(express.json())
 
 // API routes
-app.use('/api/hello', apiRoutes);
-app.use('/api/quote', apiQuotes);
+app.use('/api', apiRoutes);
 
 // Public side
 app.use(express.static("public"))
