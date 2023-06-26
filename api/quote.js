@@ -10,8 +10,8 @@ function getRandomQuote() {
     return data[index];
 }
 
-router.get('/', (req, res) => {
-  res.json(getRandomQuote);
+router.get('/api/quote', (req, res) => {
+  res.json(getRandomQuote());
 });
 
 export default router;
