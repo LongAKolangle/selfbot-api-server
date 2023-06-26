@@ -3,7 +3,6 @@ import serverless from "serverless-http"
 import fs from "fs"
 import path from "path";
 
-const router = express.Router()
 const app = express();
 const __dirname = process.cwd()
 
@@ -23,12 +22,10 @@ function getRandomQuote() {
     return data[index];
 }
 
-router.get("/quote", async (req, res) => {
+app.get("/api/quote", async (req, res) => {
     const quote = getRandomQuote()
     res.json(quote)
 })
-
-app.use("/api", router)
 
 const serverlessApp = serverless(app);
 
