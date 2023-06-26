@@ -12,4 +12,4 @@ router.get('/api/item/:slug', (req, res) => {
   res.end(`Item: ${slug}`);
 });
 
-module.exports = router;
+export default router;
