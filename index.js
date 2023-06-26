@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json())
 
 // API routes
-app.use('/api', apiRoutes);
+app.use('/api/hello', apiRoutes);
 app.use('/api/quote', apiQuotes);
 
 // Public side
@@ -21,6 +21,10 @@ app.use((err, req, res, next) => {
     res.status(500).send('Internal Server Error');
 });
 
+app.get("*", (req, res) => {
+    res.status(404).json("Not Found")
+})
+
 const serverlessHandler = serverless(app);
 
 if (process.platform == "win32") {
@@ -29,4 +33,5 @@ if (process.platform == "win32") {
         console.log(`Server running at http://localhost:${port}`);
     });
 }
+
 export default serverlessHandler;
