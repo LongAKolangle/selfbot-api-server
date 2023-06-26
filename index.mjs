@@ -1,32 +1,30 @@
 import express from "express"
 import serverless from "serverless-http"
-import fs from "fs"
 import path from "path";
+import { getRandomQuote } from "./api/quote/index.mjs";
 
 const app = express();
+const router = express.Router()
 const __dirname = process.cwd()
 
-function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
 
 app.use(express.json())
 
 app.use(express.static(path.join(__dirname, "public")))
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Internal Server Error');
-});
-
-app.get("/api/quote", async (req, res) => {
-    const rawData = await fs.promises.readFile(path.join(__dirname, "data/quotes.json"), "utf-8")
-    const data = JSON.parse(rawData)
-    res.json(data[randomInt(0, data.length)])
+router.get("/quote", async (req, res) => {
+    res.json(getRandomQuote(__dirname))
 })
+
+app.use("/api", router)
 
 app.get("*", (req, res) => {
     res.status(404).send('404 - Not Found');
 })
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Internal Server Error');
+});
+app.listen(3000)
 export default serverless(app)
