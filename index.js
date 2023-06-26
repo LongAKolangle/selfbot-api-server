@@ -3,6 +3,7 @@ import serverless from "serverless-http"
 import apiRoutes from "./api/index.js"
 import apiQuotes from "./api/quote.js"
 
+
 const app = express();
 
 app.use(express.json())
@@ -22,11 +23,10 @@ app.use((err, req, res, next) => {
 
 const serverlessHandler = serverless(app);
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.platform == "win32") {
     const port = 3000;
     app.listen(port, () => {
         console.log(`Server running at http://localhost:${port}`);
     });
-} else {
-    module.exports = serverlessHandler;
 }
+export default serverlessHandler;
