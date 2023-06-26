@@ -1,0 +1,24 @@
+{
+  "name": "selfbot-api-server",
+  "version": "1.0.0",
+  "description": "BKI Discord Selfbot API Server",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LongAKolangle/selfbot-api-server.git"
+  },
+  "author": "Eternityyy",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/LongAKolangle/selfbot-api-server/issues"
+  },
+  "homepage": "https://github.com/LongAKolangle/selfbot-api-server#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
